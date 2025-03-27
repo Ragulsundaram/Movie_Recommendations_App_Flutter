@@ -2,34 +2,29 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # or your default branch name
+
+permissions:
+  contents: write    # This is important! Gives write permission
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
+      
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'  # Updated Flutter version
+          flutter-version: '3.x'
           channel: 'stable'
       
-      - name: Enable Flutter Web
-        run: flutter config --enable-web
-        
-      - name: Get dependencies
-        run: flutter pub get
-        
       - name: Build
         run: |
-          flutter clean
           flutter pub get
-          flutter build web --release --base-href "/movierecommendationsflutter/" --no-tree-shake-icons
-        
+          flutter build web --base-href /Movie_Recommendations_App_Flutter/
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
-          force_orphan: true
