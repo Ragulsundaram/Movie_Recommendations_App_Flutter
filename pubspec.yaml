@@ -13,7 +13,7 @@ dependencies:
   iconsax: ^0.0.8
   http: ^1.1.0
   cached_network_image: ^3.3.0
-  google_fonts: ^5.1.0  # Downgraded from ^6.1.0
+  google_fonts: ^5.1.0  # Downgraded to a more stable version
   flutter_svg: ^2.0.9
   shared_preferences: ^2.2.2
 
